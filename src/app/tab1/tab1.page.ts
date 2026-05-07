@@ -7,7 +7,12 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class Tab1Page {
-
+  public appPages = [
+    { nome: 'Aspirador' },
+    { nome: 'TV' },
+  ];
   constructor() {}
 
 }
+
+
