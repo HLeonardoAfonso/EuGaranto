@@ -13,5 +13,23 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 2 page"></app-explore-container>
+  <div class="input-container">
+    
+    <ion-input label="Marca" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+    <ion-input label="Modelo" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+    <ion-input label="Data de Compra" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+    <ion-input label="Duração da Garantia" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>00 de 0000</ion-card-title>
+        <ion-card-subtitle>FIM DA GARANTIA</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-button routerLink="/tabs/tab1">
+      Confirmar Registo
+    </ion-button>
+  </div>
+
 </ion-content>

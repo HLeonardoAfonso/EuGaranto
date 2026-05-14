@@ -19,7 +19,7 @@
   </ion-button>
 
   @for (p of appPages; track p; let i = $index) {
-    <ion-card button routerLink="/new-product">
+    <ion-card button [routerLink]="['/new-product', p.id]">
       <ion-card-content>
         <ion-item>
           <ion-thumbnail slot="start">

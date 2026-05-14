@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-tab1',
@@ -7,11 +8,9 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class Tab1Page {
-  public appPages = [
-    { nome: 'Aspirador' },
-    { nome: 'TV' },
-  ];
-  constructor() {}
+  public appPages = this.productService.getProducts();
+
+  constructor(private productService: ProductService) {}
 
 }
 
