@@ -7,10 +7,82 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">{{ productName }}</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Warranty Status Card -->
+  <ion-card class="warranty-card">
+    <div class="warranty-card-watermark">
+      <ion-icon name="shield-checkmark-outline"></ion-icon>
+    </div>
+    <ion-card-header>
+      <ion-card-title class="warranty-card-title">ESTADO DA GARANTIA</ion-card-title>
+    </ion-card-header>
+    <ion-card-content class="warranty-card-content">
+      <div class="progress-container">
+        <svg class="progress-ring" width="120" height="120" viewBox="0 0 120 120">
+          <circle class="progress-ring-bg" cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="8"/>
+          <circle class="progress-ring-fill" cx="60" cy="60" r="50" fill="none" stroke="white" stroke-width="8"
+            stroke-linecap="round"
+            [attr.stroke-dasharray]="progressCircumference"
+            [attr.stroke-dashoffset]="progressOffset"
+            transform="rotate(-90 60 60)"/>
+        </svg>
+        <div class="progress-text">
+          <span class="progress-percent">{{ garantiaPercentual }}%</span>
+          <span class="progress-label">DECORRIDO</span>
+        </div>
+      </div>
+      <div class="warranty-info">
+        <ion-badge color="success" class="warranty-badge">
+          <ion-icon name="checkmark-circle" class="badge-icon"></ion-icon>
+          VÁLIDO
+        </ion-badge>
+        <p class="warranty-expiry">Fim da garantia em <strong>{{ garantiaRestanteDias }} dias</strong></p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  
+  <div class="container">
+    <ion-label>ESPECIFICAÇÕES TÉCNICAS</ion-label>
+
+    <ion-list >
+      <ion-item>
+        <ion-label>Marca</ion-label>
+        <span slot="end">{{ product.marca }}</span>
+      </ion-item>
+      <ion-item>
+        <ion-label >Modelo</ion-label>
+        <span slot="end" >{{ product.modelo }}</span>
+      </ion-item>
+      <ion-item>
+        <ion-label >Data de Compra</ion-label>
+        <span slot="end" >{{ product.dataCompra | date:'dd/MM/yyyy' }}</span>
+      </ion-item>
+      <ion-item>
+        <ion-label >Garantia</ion-label>
+        <span slot="end" >{{ product.duracaoGarantia }} meses</span>
+      </ion-item>
+    </ion-list>
+
+    <ion-label>DOCUMENTAÇÂO</ion-label>
+    <!-- TODO: Add image tiles for FATURA and ARMAZENAMENTO -->
+
+    <ion-button expand="block" color="primary">
+      <ion-icon slot="start" name="pencil-sharp"></ion-icon>
+      Editar
+    </ion-button>
+
+    <ion-item>
+      <ion-icon slot="start" name="notifications-outline"></ion-icon>
+      <ion-label>Notificações Ativas</ion-label>
+      <ion-toggle slot="end" [(ngModel)]="notificacoesAtivas" color="success"></ion-toggle>
+    </ion-item>
+
+  </div>
+
 </ion-content>

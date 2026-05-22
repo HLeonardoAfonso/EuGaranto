@@ -13,10 +13,16 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-button routerLink="/tabs/tab2">
-    <ion-icon slot="start" name="add-circle"></ion-icon>
-    Adicionar Produto
-  </ion-button>
+  <div class="inline">
+    <ion-button routerLink="/tabs/tab2">
+      <ion-icon slot="start" name="add-circle"></ion-icon>
+      Adicionar Produto
+    </ion-button>
+    <ion-button routerLink="/notificacoes">
+      <ion-icon slot="start" name="notifications-sharp"></ion-icon>
+      Activar Avisos
+    </ion-button>
+  </div>
 
   @for (p of appPages; track p; let i = $index) {
     <ion-card button [routerLink]="['/new-product', p.id]">
@@ -34,5 +40,4 @@
     </ion-card>
   }
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
 </ion-content>
