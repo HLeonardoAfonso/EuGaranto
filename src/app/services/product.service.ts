@@ -8,6 +8,7 @@ export interface Product {
   dataCompra: Date;
   duracaoGarantia: number; // warranty duration in months
   statusValido: boolean;
+  notications: boolean;
 }
 
 @Injectable({
@@ -22,7 +23,8 @@ export class ProductService {
       modelo: 'ASP-1234',
       dataCompra: new Date('2025-01-15'),
       duracaoGarantia: 24,
-      statusValido: true
+      statusValido: true,
+      notications: false
     },
     {
       id: 2,
@@ -31,7 +33,8 @@ export class ProductService {
       modelo: 'UN55T7000',
       dataCompra: new Date('2025-10-01'),
       duracaoGarantia: 12,
-      statusValido: true
+      statusValido: true,
+      notications: false
     },
   ];
 

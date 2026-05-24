@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-notificacoes',
@@ -8,7 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificacoesPage implements OnInit {
 
-  constructor() { }
+  emailSelected: boolean = false;
+  pushSelected: boolean = false;
+
+  public products = this.productService.getProducts();
+
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
   }

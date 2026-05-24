@@ -13,4 +13,61 @@
       <ion-title size="large">notificacoes</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="container">
+
+    <ion-item>
+      <ion-label>Receber notificações de todas as garantias</ion-label>
+      <ion-toggle slot="end"></ion-toggle>
+    </ion-item>
+
+    <ion-list-header>
+      <ion-label>
+        <ion-icon name="notifications-outline"></ion-icon>
+        Canais de Envio
+      </ion-label>
+    </ion-list-header>
+
+    <div class="inline">
+      <ion-chip 
+        [color]="emailSelected ? 'primary' : ''" 
+        [outline]="true" 
+        (click)="emailSelected = !emailSelected"
+        class="chip">
+        <ion-icon name="mail-outline"></ion-icon>
+        <ion-label>E-mail</ion-label>
+        <ion-icon *ngIf="emailSelected" name="checkmark-circle"></ion-icon>
+      </ion-chip>
+
+      <ion-chip 
+        [color]="pushSelected ? 'primary' : ''" 
+        [outline]="true" 
+        (click)="pushSelected = !pushSelected"
+        class="chip">
+        <ion-icon name="phone-portrait-outline"></ion-icon>
+        <ion-label>Push</ion-label>
+        <ion-icon *ngIf="pushSelected" name="checkmark-circle"></ion-icon>
+      </ion-chip>
+    </div>
+
+    <ion-list-header>
+      <ion-label>
+        <ion-icon name="list-outline"></ion-icon>
+        Gerir por Produto
+      </ion-label>
+    </ion-list-header>
+
+    @for (p of products; track p; let i = $index) {
+      <ion-item>
+        <ion-thumbnail slot="start">
+          <ion-icon name="phone-portrait-outline" size="large"></ion-icon>
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{p.nome}}</h2>
+          <p>Alertar 15 dias antes</p>
+        </ion-label>
+        <ion-toggle slot="end" color="success"></ion-toggle>
+      </ion-item>
+    }
+  </div>
 </ion-content>
