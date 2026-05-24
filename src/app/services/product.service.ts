@@ -36,6 +36,26 @@ export class ProductService {
       statusValido: true,
       notications: false
     },
+    {
+      id: 3,
+      nome: 'Telemóvel',
+      marca: 'Xiaomi',
+      modelo: 'Redmi Note 12',
+      dataCompra: new Date('2024-02-20'),
+      duracaoGarantia: 24,
+      statusValido: true,
+      notications: false
+    },
+    {
+      id: 4,
+      nome: 'Micro-ondas',
+      marca: 'LG',
+      modelo: 'MS-2042B',
+      dataCompra: new Date('2025-06-10'),
+      duracaoGarantia: 12,
+      statusValido: true,
+      notications: false
+    },
   ];
 
   constructor() {}

@@ -6,3 +6,83 @@
 .inline > * {
     flex: 1;
 }
+
+// cartão garantia
+
+.year-divider {
+    display: flex;
+    align-items: baseline;
+    padding: 12px 12px 4px;
+    gap: 8px;
+
+    span {
+        font-size: 40px;
+        font-weight: 600;
+        color: gray;
+    }
+
+    hr {
+        flex: 1;
+        border-color: gray;
+        border-top: 1px solid
+    }
+}
+
+ion-card {
+    border-radius: 8px;
+}
+
+.card-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+ion-thumbnail {
+    --size: 80px;
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0; 
+}
+
+.card-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    gap: 8px;
+}
+
+ion-card-title {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+ion-card-subtitle {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-date {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+
+    ion-icon {
+      font-size: 14px;
+    }
+
+    ion-label {
+      font-size: 12px;
+    }
+}
