@@ -9,9 +9,14 @@ const routes: Routes = [
   {
     path: 'new-product',
     loadChildren: () => import('./new-product/new-product.module').then( m => m.NewProductPageModule)
-  },  {
+  },
+  {
     path: 'criargrupo',
     loadChildren: () => import('./criargrupo/criargrupo.module').then( m => m.CriargrupoPageModule)
+  },
+  {
+    path: 'grupo-detalhe/:id',
+    loadChildren: () => import('./grupo-detalhe/grupo-detalhe.module').then( m => m.GrupoDetalhePageModule)
   }
 
 ];

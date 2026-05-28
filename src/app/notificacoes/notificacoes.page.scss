@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 12px;
+}
+
+.inline {
+    display: flex;
+    flex-direction: row;
+}
+
+.inline > * {
+    flex: 1;
+}
+
+.chip {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}

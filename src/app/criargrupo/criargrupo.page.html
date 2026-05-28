@@ -15,12 +15,12 @@
 
     <ion-item>
       <ion-label position="floating">Nome do Grupo</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]="nomeGrupo"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating">Descrição ou Categoria (opcional)</ion-label>
-      <ion-input></ion-input>
+      <ion-input [(ngModel)]="descricaoGrupo"></ion-input>
     </ion-item>
 
     <ion-label>Sugestões de Ícones</ion-label>
@@ -35,7 +35,7 @@
     </div>
 
     <div class="botoes">
-      <ion-button expand="block" routerLink="/meusgrupos">Criar Grupo</ion-button>
+      <ion-button expand="block" (click)="criarGrupo()">Criar Grupo</ion-button>
       <ion-button expand="block" fill="clear" routerLink="/tabs/tab3" routerDirection="back">
         Cancelar
       </ion-button>

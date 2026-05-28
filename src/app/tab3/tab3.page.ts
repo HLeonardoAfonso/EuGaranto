@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { GrupoService, Group } from '../services/grupo.service';
 
 @Component({
   selector: 'app-tab3',
@@ -6,8 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['tab3.page.scss'],
   standalone: false,
 })
-export class Tab3Page {
+export class Tab3Page implements OnInit {
+  grupos: Group[] = [];
 
-  constructor() {}
+  constructor(private grupoService: GrupoService) {}
 
+  ngOnInit() {
+    this.grupos = this.grupoService.getGrupos();
+  }
 }
