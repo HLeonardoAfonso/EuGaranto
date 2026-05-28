@@ -67,4 +67,14 @@ export class ProductService {
   getProductById(id: number) {
     return this.products.find(p => p.id === id);
   }
+
+  addProduct(product: Omit<Product, 'id'>): Product {
+    const maxId = this.products.reduce((max, p) => Math.max(max, p.id), 0);
+    const newProduct: Product = {
+      ...product,
+      id: maxId + 1
+    };
+    this.products.push(newProduct);
+    return newProduct;
+  }
 }

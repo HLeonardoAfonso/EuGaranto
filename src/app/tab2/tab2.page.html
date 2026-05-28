@@ -15,10 +15,59 @@
 
   <div class="input-container">
     
-    <ion-input label="Marca" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
-    <ion-input label="Modelo" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
-    <ion-input label="Data de Compra" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
-    <ion-input label="Duração da Garantia" label-placement="floating" fill="outline" placeholder="Enter text"></ion-input>
+    <ion-input label="Nome" label-placement="floating" fill="outline" placeholder="Enter text" [(ngModel)]="nome"></ion-input>
+    <ion-input label="Marca" label-placement="floating" fill="outline" placeholder="Enter text" [(ngModel)]="marca"></ion-input>
+    <ion-input label="Modelo" label-placement="floating" fill="outline" placeholder="Enter text" [(ngModel)]="modelo"></ion-input>
+    
+    <ion-datetime-button datetime="datetime" label="Data de Compra"></ion-datetime-button>
+    <ion-datetime id="datetime" presentation="date" [(ngModel)]="dataCompra"></ion-datetime>
+    
+    <div class="duration-container">
+      <ion-input
+        label="Duração"
+        label-placement="floating"
+        fill="outline"
+        [value]="durationValue"
+        readonly
+        (click)="pickerOpen = true">
+      </ion-input>
+
+      <ion-input
+        fill="outline"
+        [value]="durationUnit"
+        readonly
+        (click)="pickerOpen = true">
+      </ion-input>
+    </div>
+
+    <ion-modal [isOpen]="pickerOpen" (didDismiss)="pickerOpen = false">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="pickerOpen = false">Cancelar</ion-button>
+            </ion-buttons>
+            <ion-title>Duração</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="pickerOpen = false">Confirmar</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-picker>
+          <ion-picker-column [value]="durationValue" (ionChange)="onUnitChange()">
+            <ion-picker-column-option *ngFor="let n of numberOptions" [value]="n">
+              {{n}}
+            </ion-picker-column-option>
+          </ion-picker-column>
+
+          <ion-picker-column [(ngModel)]="durationUnit" (ionChange)="onUnitChange()">
+            <ion-picker-column-option value="DIAS">DIAS</ion-picker-column-option>
+            <ion-picker-column-option value="MESES">MESES</ion-picker-column-option>
+            <ion-picker-column-option value="ANOS">ANOS</ion-picker-column-option>
+          </ion-picker-column>
+        </ion-picker>
+      </ng-template>
+    </ion-modal>
 
     <ion-card>
       <ion-card-header>
@@ -27,7 +76,7 @@
       </ion-card-header>
     </ion-card>
 
-    <ion-button routerLink="/tabs/tab1">
+    <ion-button (click)="confirmarRegisto()">
       Confirmar Registo
     </ion-button>
   </div>
