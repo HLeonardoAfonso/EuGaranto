@@ -1,0 +1,46 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Novo Grupo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Novo Grupo</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="container">
+
+    <ion-item>
+      <ion-label position="floating">Nome do Grupo</ion-label>
+      <ion-input [(ngModel)]="nomeGrupo"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Descrição ou Categoria (opcional)</ion-label>
+      <ion-input [(ngModel)]="descricaoGrupo"></ion-input>
+    </ion-item>
+
+    <ion-label>Sugestões de Ícones</ion-label>
+    <div class="icones-grid">
+      @for (icone of iconesSugeridos; track icone) {
+        <ion-button
+          [fill]="iconeEscolhido === icone ? 'solid' : 'outline'"
+          (click)="selecionarIcone(icone)">
+          <ion-icon [name]="icone"></ion-icon>
+        </ion-button>
+      }
+    </div>
+
+    <div class="botoes">
+      <ion-button expand="block" (click)="criarGrupo()">Criar Grupo</ion-button>
+      <ion-button expand="block" fill="clear" routerLink="/tabs/tab3" routerDirection="back">
+        Cancelar
+      </ion-button>
+    </div>
+
+  </div>
+
+</ion-content>

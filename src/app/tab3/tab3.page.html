@@ -13,5 +13,19 @@
     </ion-toolbar>
   </ion-header>
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+  <ion-button routerLink="/criargrupo">Criar um novo Grupo</ion-button>
+
+  <ion-list>
+  @for (grupo of grupos; track grupo.id) {
+    <ion-item [routerLink]="['/grupo-detalhe', grupo.id]" button detail>
+      <ion-icon [name]="grupo.icone" slot="start"></ion-icon>
+      <ion-label>
+        <h2>{{ grupo.nome }}</h2>
+        <p>{{ grupo.descricao }}</p>
+      </ion-label>
+    </ion-item>
+  }
+</ion-list>
+
+ 
 </ion-content>
