@@ -11,6 +11,10 @@ const routes: Routes = [
     loadChildren: () => import('./new-product/new-product.module').then( m => m.NewProductPageModule)
   },
   {
+    path: 'notificacoes',
+    loadChildren: () => import('./notificacoes/notificacoes.module').then( m => m.NotificacoesPageModule)
+  },
+  {
     path: 'criargrupo',
     loadChildren: () => import('./criargrupo/criargrupo.module').then( m => m.CriargrupoPageModule)
   },

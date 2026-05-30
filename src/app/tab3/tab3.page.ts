@@ -12,7 +12,7 @@ export class Tab3Page implements OnInit {
 
   constructor(private grupoService: GrupoService) {}
 
-  ngOnInit() {
-    this.grupos = this.grupoService.getGrupos();
+  async ngOnInit() {
+    this.grupos = await this.grupoService.getGrupos();
   }
 }

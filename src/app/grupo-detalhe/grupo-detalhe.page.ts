@@ -15,10 +15,9 @@ export class GrupoDetalhePage implements OnInit {
 
   constructor(private grupoService: GrupoService, private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.grupo = this.grupoService.getGrupoById(id);
-
+    this.grupo = await this.grupoService.getGrupoById(id);
   }
 
 }

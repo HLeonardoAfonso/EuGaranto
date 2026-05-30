@@ -21,9 +21,9 @@ export class NewProductPage implements OnInit {
     private navCtrl: NavController
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    const product = this.productService.getProductById(id);
+    const product = await this.productService.getProductById(id);
 
     if (!product) {
       this.navCtrl.navigateBack('/tabs/tab1');

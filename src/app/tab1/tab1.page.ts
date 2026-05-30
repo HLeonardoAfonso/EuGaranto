@@ -13,10 +13,13 @@ export interface ProductGroup {
   standalone: false,
 })
 export class Tab1Page {
-  public appPages = this.productService.getProducts();
-  groupedProducts: ProductGroup[];
+  public appPages: Product[] = [];
+  groupedProducts: ProductGroup[] = [];
 
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService) {}
+
+  async ionViewWillEnter() {
+    this.appPages = await this.productService.getProducts();
     this.groupedProducts = this.buildGroupedProducts();
   }
 

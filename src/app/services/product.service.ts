@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Storage } from '@ionic/storage-angular';
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 export interface Product {
   id: number;
@@ -14,6 +16,7 @@ export interface Product {
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductService {
   private products: Product[] = [
     {
@@ -58,23 +61,26 @@ export class ProductService {
     },
   ];
 
-  constructor() {}
+  constructor(private storage: Storage) {}
 
-  getProducts() {
-    return this.products;
+  async getProducts(): Promise<Product[]> {
+    const products = await this.storage.get('_garantiasdb');
+    return products || this.products;
   }
 
-  getProductById(id: number) {
-    return this.products.find(p => p.id === id);
+  async getProductById(id: number): Promise<Product | undefined> {
+    const products = await this.getProducts();
+    return products.find(prod => prod.id === id);
   }
 
-  addProduct(product: Omit<Product, 'id'>): Product {
+  async addProduct(product: Omit<Product, 'id'>): Promise<Product> {
     const maxId = this.products.reduce((max, p) => Math.max(max, p.id), 0);
     const newProduct: Product = {
       ...product,
       id: maxId + 1
     };
     this.products.push(newProduct);
+    await this.storage.set('_garantiasdb', this.products);
     return newProduct;
   }
 }

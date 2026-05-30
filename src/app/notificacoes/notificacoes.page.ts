@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../services/product.service';
+import { Component } from '@angular/core';
+import { Product, ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-notificacoes',
@@ -7,16 +7,18 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./notificacoes.page.scss'],
   standalone: false,
 })
-export class NotificacoesPage implements OnInit {
+
+export class NotificacoesPage {
 
   emailSelected: boolean = false;
   pushSelected: boolean = false;
 
-  public products = this.productService.getProducts();
+  public products: Product[] = [];
 
   constructor(private productService: ProductService) { }
 
-  ngOnInit() {
+  async ionViewWillEnter() {
+    this.products = await this.productService.getProducts();
   }
 
 }
