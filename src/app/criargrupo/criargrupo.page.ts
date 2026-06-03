@@ -26,9 +26,9 @@ selecionarIcone(icone: string) {
 nomeGrupo: string = '';
 descricaoGrupo: string = '';
 
-  criarGrupo() {
-if (!this.nomeGrupo.trim()) return;
-    this.Grupoadd.addGrupo(this.nomeGrupo, this.descricaoGrupo, this.iconeEscolhido);
+  async criarGrupo() {
+    if (!this.nomeGrupo.trim()) return;
+    await this.Grupoadd.addGrupo(this.nomeGrupo, this.descricaoGrupo, this.iconeEscolhido);
     this.router.navigateByUrl('/tabs/tab3');
   }
 
