@@ -39,7 +39,7 @@ export class GrupoDetalhePage implements OnInit {
         this.produtos.push(produto);
       }
     }
-  }
+   }
 
 
 getFoto(nome: string): string {
