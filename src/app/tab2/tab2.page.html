@@ -69,6 +69,53 @@
       </ng-template>
     </ion-modal>
 
+    <!-- Image Sections -->
+    <div class="image-section">
+      <div class="image-block">
+        <ion-label class="image-label">Fatura</ion-label>
+        @if (fotoFatura) {
+          <div class="image-preview">
+            <img [src]="fotoFatura" alt="Fatura" />
+            <div class="image-actions">
+              <ion-button size="small" fill="clear" (click)="tirarFoto('fatura')">
+                <ion-icon slot="icon-only" name="camera"></ion-icon>
+              </ion-button>
+              <ion-button size="small" fill="clear" color="danger" (click)="removerFoto('fatura')">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        } @else {
+          <div class="image-placeholder" (click)="tirarFoto('fatura')">
+            <ion-icon name="camera-outline"></ion-icon>
+            <span>Adicionar Foto</span>
+          </div>
+        }
+      </div>
+
+      <div class="image-block">
+        <ion-label class="image-label">Local</ion-label>
+        @if (fotoLocal) {
+          <div class="image-preview">
+            <img [src]="fotoLocal" alt="Local" />
+            <div class="image-actions">
+              <ion-button size="small" fill="clear" (click)="tirarFoto('local')">
+                <ion-icon slot="icon-only" name="camera"></ion-icon>
+              </ion-button>
+              <ion-button size="small" fill="clear" color="danger" (click)="removerFoto('local')">
+                <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        } @else {
+          <div class="image-placeholder" (click)="tirarFoto('local')">
+            <ion-icon name="camera-outline"></ion-icon>
+            <span>Adicionar Foto</span>
+          </div>
+        }
+      </div>
+    </div>
+
     <ion-card>
       <ion-card-header>
         <ion-card-title>00 de 0000</ion-card-title>

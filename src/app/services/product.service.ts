@@ -9,6 +9,8 @@ export interface Product {
   modelo: string;
   dataCompra: Date;
   duracaoGarantia: number; // warranty duration in months
+  fotoFatura?: string;
+  fotoLocal?: string;
   statusValido: boolean;
   notications: boolean;
 }

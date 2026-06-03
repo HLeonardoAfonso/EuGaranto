@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ProductService } from '../services/product.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
   selector: 'app-tab2',
@@ -21,6 +22,10 @@ export class Tab2Page {
   modelo: string = '';
   dataCompra: string = '';
 
+  // Image fields
+  fotoFatura: string | null = null;
+  fotoLocal: string | null = null;
+
   constructor(
     private productService: ProductService,
     private navCtrl: NavController
@@ -38,6 +43,38 @@ export class Tab2Page {
 
   onUnitChange() {
     this.updateNumberOptions();
+  }
+
+  async tirarFoto(tipo: 'fatura' | 'local') {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 70,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Prompt,
+        promptLabelHeader: 'Selecionar Origem',
+        promptLabelCancel: 'Cancelar',
+      });
+
+      if (image.dataUrl) {
+        if (tipo === 'fatura') {
+          this.fotoFatura = image.dataUrl;
+        } else {
+          this.fotoLocal = image.dataUrl;
+        }
+      }
+    } catch (error) {
+      // User cancelled or error occurred
+      console.error('Camera error:', error);
+    }
+  }
+
+  removerFoto(tipo: 'fatura' | 'local') {
+    if (tipo === 'fatura') {
+      this.fotoFatura = null;
+    } else {
+      this.fotoLocal = null;
+    }
   }
 
   confirmarRegisto() {
@@ -70,7 +107,9 @@ export class Tab2Page {
       dataCompra: new Date(this.dataCompra),
       duracaoGarantia: duracaoGarantia,
       statusValido: true,
-      notications: false
+      notications: false,
+      fotoFatura: this.fotoFatura ?? undefined,
+      fotoLocal: this.fotoLocal ?? undefined,
     });
 
     this.navCtrl.navigateRoot('/tabs/tab1');

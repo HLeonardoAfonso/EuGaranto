@@ -37,7 +37,11 @@
           <div class="card-row">
 
             <ion-thumbnail slot="start">
-              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+              @if (p.fotoLocal) {
+                <img [src]="p.fotoLocal" alt="{{ p.nome }}" />
+              } @else {
+                <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+              }
             </ion-thumbnail>
 
             <div class="card-col">

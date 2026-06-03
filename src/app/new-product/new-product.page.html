@@ -70,7 +70,36 @@
     </ion-list>
 
     <ion-label>DOCUMENTAÇÂO</ion-label>
-    <!-- TODO: Add image tiles for FATURA and ARMAZENAMENTO -->
+
+    <div class="image-section">
+      <div class="image-block">
+        <ion-label class="image-label">Fatura</ion-label>
+        @if (product.fotoFatura) {
+          <div class="image-preview">
+            <img [src]="product.fotoFatura" alt="Fatura" />
+          </div>
+        } @else {
+          <div class="image-placeholder">
+            <ion-icon name="document-outline"></ion-icon>
+            <span>Sem foto</span>
+          </div>
+        }
+      </div>
+
+      <div class="image-block">
+        <ion-label class="image-label">Local</ion-label>
+        @if (product.fotoLocal) {
+          <div class="image-preview">
+            <img [src]="product.fotoLocal" alt="Local" />
+          </div>
+        } @else {
+          <div class="image-placeholder">
+            <ion-icon name="location-outline"></ion-icon>
+            <span>Sem foto</span>
+          </div>
+        }
+      </div>
+    </div>
 
     <ion-button expand="block" color="primary">
       <ion-icon slot="start" name="pencil-sharp"></ion-icon>
