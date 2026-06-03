@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Adicionar Produtos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancelar()">Cancelar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="pesquisa" (ionInput)="filtrarProdutos()" placeholder="Pesquisar..."></ion-searchbar>
+
+  <ion-list>
+    <ion-item *ngFor="let produto of produtosFiltrados" (click)="toggleSelecao(produto)">
+      <ion-icon slot="start" name="pricetag-outline"></ion-icon>
+      <ion-label>
+        <h2>{{ produto.nome }}</h2>
+        <p>{{ produto.marca }} — {{ produto.modelo }}</p>
+      </ion-label>
+      <ion-checkbox slot="end" [checked]="selecionados.includes(produto)"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" (click)="confirmar()">
+    Adicionar ({{ selecionados.length }})
+  </ion-button>
+</ion-content>
