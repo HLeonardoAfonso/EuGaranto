@@ -1,0 +1,51 @@
+.grupo-titulo {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--ion-color-primary);
+  padding: 16px 16px 8px;
+  margin: 0;
+}
+
+.actions-row {
+  padding: 8px 16px 16px;
+
+  .btn-adicionar {
+    --border-radius: 12px;
+  }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px 4px;
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ion-color-dark);
+  }
+
+  .section-count {
+    font-size: 13px;
+    color: var(--ion-color-medium);
+  }
+
+  .ver-todos {
+    font-size: 13px;
+    color: var(--ion-color-primary);
+    cursor: pointer;
+  }
+}
+
+.btn-mover {
+  margin: 16px;
+  border-radius: 12px;
+  --background: var(--ion-color-light);
+  font-weight: 500;
+}
+
+.btn-sair {
+  margin: 8px 16px 32px;
+  --border-radius: 12px;
+}

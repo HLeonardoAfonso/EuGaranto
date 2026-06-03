@@ -38,6 +38,7 @@ export class SelecionarPessoaPage implements OnInit {
   if (index > -1) {
     this.selecionadas.splice(index, 1);
   } else {
+    
     this.selecionadas.push(pessoa);
     }
   }
