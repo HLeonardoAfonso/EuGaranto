@@ -72,6 +72,14 @@ ion-datetime-button {
   }
 }
 
+.ng-invalid.ng-touched {
+  --border-color: var(--ion-color-danger);
+}
+
+ion-text {
+  margin-top: -8px;
+}
+
 .image-placeholder {
   display: flex;
   flex-direction: column;

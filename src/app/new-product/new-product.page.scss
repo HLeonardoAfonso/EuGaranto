@@ -76,20 +76,6 @@
     gap: 8px;
   }
 
-  .warranty-badge {
-    --background: #2ed573;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    padding: 6px 12px;
-    border-radius: 20px;
-
-    .badge-icon {
-      font-size: 16px;
-    }
-  }
-
   .warranty-expiry {
     color: rgba(255, 255, 255, 0.8);
     font-size: 13px;

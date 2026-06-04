@@ -13,20 +13,34 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="input-container">
+  <form [formGroup]="form" class="input-container">
     
-    <ion-input label="Nome" label-placement="floating" fill="outline" placeholder="Enter text" [(ngModel)]="nome"></ion-input>
-    <ion-input label="Marca" label-placement="floating" fill="outline" placeholder="Enter text" [(ngModel)]="marca"></ion-input>
-    <ion-input label="Modelo" label-placement="floating" fill="outline" placeholder="Enter text" [(ngModel)]="modelo"></ion-input>
-    
+    <ion-input label="Nome" label-placement="floating" fill="outline" placeholder="Enter text" formControlName="nome"></ion-input>
+    @if (f['nome'].invalid && (f['nome'].dirty || f['nome'].touched)) {
+      <ion-text color="danger"><small>Campo obrigatório</small></ion-text>
+    }
+
+    <ion-input label="Marca" label-placement="floating" fill="outline" placeholder="Enter text" formControlName="marca"></ion-input>
+    @if (f['marca'].invalid && (f['marca'].dirty || f['marca'].touched)) {
+      <ion-text color="danger"><small>Campo obrigatório</small></ion-text>
+    }
+
+    <ion-input label="Modelo" label-placement="floating" fill="outline" placeholder="Enter text" formControlName="modelo"></ion-input>
+    @if (f['modelo'].invalid && (f['modelo'].dirty || f['modelo'].touched)) {
+      <ion-text color="danger"><small>Campo obrigatório</small></ion-text>
+    }
+
     <ion-datetime-button datetime="datetime" label="Data de Compra"></ion-datetime-button>
     <ion-datetime
       id="datetime"
       presentation="date"
-      [value]="dataCompra"
+      [value]="f['dataCompra'].value"
       (ionChange)="onDataCompraChange($event)">
     </ion-datetime>
-    
+    @if (f['dataCompra'].invalid && (f['dataCompra'].dirty || f['dataCompra'].touched)) {
+      <ion-text color="danger"><small>Campo obrigatório</small></ion-text>
+    }
+
     <div class="duration-container">
       <ion-input
         label="Duração"
@@ -73,6 +87,17 @@
         </ion-picker>
       </ng-template>
     </ion-modal>
+
+    @if (f['dataCompra'].value) {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            {{ fimGarantia ? (fimGarantia | date:'dd MMMM yyyy') : '00 de 0000' }}
+          </ion-card-title>
+          <ion-card-subtitle>FIM DA GARANTIA</ion-card-subtitle>
+        </ion-card-header>
+      </ion-card>
+    }
 
     <!-- Image Sections -->
     <div class="image-section">
@@ -121,15 +146,6 @@
       </div>
     </div>
 
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>
-          {{ fimGarantia ? (fimGarantia | date:'dd MMMM yyyy') : '00 de 0000' }}
-        </ion-card-title>
-        <ion-card-subtitle>FIM DA GARANTIA</ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
-
     <ion-button (click)="confirmarRegisto()">
       {{ editMode ? 'Guardar Alterações' : 'Confirmar Registo' }}
     </ion-button>
@@ -139,6 +155,6 @@
         Apagar Garantia
       </ion-button>
     }
-  </div>
+  </form>
 
 </ion-content>

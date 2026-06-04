@@ -39,10 +39,10 @@
           </div>
         </div>
         <div class="warranty-info">
-          <ion-badge color="success" class="warranty-badge">
-            <ion-icon name="checkmark-circle" class="badge-icon"></ion-icon>
-            VÁLIDO
-          </ion-badge>
+          <app-status-badge
+            [dataCompra]="product.dataCompra"
+            [duracaoGarantia]="product.duracaoGarantia"
+          />
           <p class="warranty-expiry">Fim da garantia em <strong>{{ garantiaRestanteDias }} dias</strong></p>
         </div>
       </ion-card-content>

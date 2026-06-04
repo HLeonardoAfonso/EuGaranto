@@ -3,6 +3,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-tab2',
@@ -17,11 +18,7 @@ export class Tab2Page implements OnInit {
   durationUnit = 'ANOS';
   numberOptions: number[] = [];
 
-  // Form fields
-  nome: string = '';
-  marca: string = '';
-  modelo: string = '';
-  dataCompra: string = '';
+  form!: FormGroup;
 
   // Image fields
   fotoFatura: string | null = null;
@@ -36,9 +33,24 @@ export class Tab2Page implements OnInit {
     private navCtrl: NavController,
     private route: ActivatedRoute,
     private router: Router,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private fb: FormBuilder
   ) {
     this.updateNumberOptions();
+    this.initializeForm();
+  }
+
+  private initializeForm() {
+    this.form = this.fb.group({
+      nome: ['', Validators.required],
+      marca: ['', Validators.required],
+      modelo: ['', Validators.required],
+      dataCompra: ['', Validators.required],
+    });
+  }
+
+  get f() {
+    return this.form.controls;
   }
 
   async ngOnInit() {
@@ -56,10 +68,12 @@ export class Tab2Page implements OnInit {
     const product = await this.productService.getProductById(id);
     if (!product) return;
 
-    this.nome = product.nome;
-    this.marca = product.marca;
-    this.modelo = product.modelo;
-    this.dataCompra = new Date(product.dataCompra).toISOString();
+    this.form.patchValue({
+      nome: product.nome,
+      marca: product.marca,
+      modelo: product.modelo,
+      dataCompra: new Date(product.dataCompra).toISOString(),
+    });
     this.fotoFatura = product.fotoFatura ?? null;
     this.fotoLocal = product.fotoLocal ?? null;
 
@@ -87,11 +101,12 @@ export class Tab2Page implements OnInit {
   }
 
   get fimGarantia(): Date | null {
-    if (!this.dataCompra || !this.durationValue) {
+    const dataCompra = this.form.get('dataCompra')?.value;
+    if (!dataCompra || !this.durationValue) {
       return null;
     }
 
-    const data = new Date(this.dataCompra);
+    const data = new Date(dataCompra);
     if (Number.isNaN(data.getTime())) {
       return null;
     }
@@ -123,7 +138,8 @@ export class Tab2Page implements OnInit {
 
   onDataCompraChange(event: CustomEvent) {
     const value = event.detail.value;
-    this.dataCompra = Array.isArray(value) ? value[0] : value;
+    const dataCompra = Array.isArray(value) ? value[0] : value;
+    this.form.get('dataCompra')?.setValue(dataCompra);
   }
 
   async tirarFoto(tipo: 'fatura' | 'local') {
@@ -159,11 +175,13 @@ export class Tab2Page implements OnInit {
   }
 
   async confirmarRegisto() {
+    this.form.markAllAsTouched();
 
-    // todos os campos preenchidos
-    if (!this.nome || !this.marca || !this.modelo || !this.dataCompra) {
+    if (this.form.invalid) {
       return;
     }
+
+    const { nome, marca, modelo, dataCompra } = this.form.value;
 
     // Convert duration to months
     let duracaoGarantia: number;
@@ -185,10 +203,10 @@ export class Tab2Page implements OnInit {
       const productId = this.editProductId;
 
       await this.productService.updateProduct(productId, {
-        nome: this.nome,
-        marca: this.marca,
-        modelo: this.modelo,
-        dataCompra: new Date(this.dataCompra),
+        nome: nome,
+        marca: marca,
+        modelo: modelo,
+        dataCompra: new Date(dataCompra),
         duracaoGarantia: duracaoGarantia,
         fotoFatura: this.fotoFatura ?? undefined,
         fotoLocal: this.fotoLocal ?? undefined,
@@ -199,10 +217,10 @@ export class Tab2Page implements OnInit {
 
     } else {
       await this.productService.addProduct({
-        nome: this.nome,
-        marca: this.marca,
-        modelo: this.modelo,
-        dataCompra: new Date(this.dataCompra),
+        nome: nome,
+        marca: marca,
+        modelo: modelo,
+        dataCompra: new Date(dataCompra),
         duracaoGarantia: duracaoGarantia,
         statusValido: true,
         notications: false,
@@ -217,10 +235,7 @@ export class Tab2Page implements OnInit {
   }
 
   private resetForm() {
-    this.nome = '';
-    this.marca = '';
-    this.modelo = '';
-    this.dataCompra = '';
+    this.form.reset();
     this.fotoFatura = null;
     this.fotoLocal = null;
     this.durationValue = 2;
