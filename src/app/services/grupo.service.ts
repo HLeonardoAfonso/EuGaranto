@@ -47,4 +47,21 @@ export class GrupoService {
     return grupos.find(g => g.id === id);
   }
 
+  async guardarGrupo(grupo: Group): Promise<void> {
+    const grupos = await this.getGrupos();
+    const index = grupos.findIndex(g => g.id === grupo.id);
+    if (index > -1) {
+      grupos[index] = grupo;
+      await this.storage.set(GRUPOS_STORAGE_KEY, grupos);
+    }
+  }
+
+  async adicionarPessoa(grupoId: number, nome: string): Promise<void> {
+    const grupos = await this.getGrupos();
+    const grupo = grupos.find(g => g.id === grupoId);
+    if (grupo) {
+      grupo.pessoas.push(nome);
+      await this.storage.set(GRUPOS_STORAGE_KEY, grupos);
+    }
+  }
 }

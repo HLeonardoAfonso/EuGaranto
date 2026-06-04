@@ -12,7 +12,14 @@ export class Tab3Page implements OnInit {
 
   constructor(private grupoService: GrupoService) {}
 
-  async ngOnInit() {
+  ngOnInit() {}
+
+  async ionViewWillEnter() {
     this.grupos = await this.grupoService.getGrupos();
+  }
+
+  getCor(index: number): string {
+    const cores = ['#4CAF50', '#607D8B', '#FF9800', '#2196F3', '#9C27B0'];
+    return cores[index % cores.length];
   }
 }

@@ -7,25 +7,46 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
+  
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Meus Grupos</ion-title>
+      <ion-title size="large">Grupos</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <ion-button routerLink="/criargrupo">Criar um novo Grupo</ion-button>
 
-  <ion-list>
-  @for (grupo of grupos; track grupo.id) {
-    <ion-item [routerLink]="['/grupo-detalhe', grupo.id]" button detail>
-      <ion-icon [name]="grupo.icone" slot="start"></ion-icon>
-      <ion-label>
-        <h2>{{ grupo.nome }}</h2>
-        <p>{{ grupo.descricao }}</p>
-      </ion-label>
-    </ion-item>
-  }
-</ion-list>
+ <!-- Título grande -->
+  <div class="grupos-header">
+    <p class="subtitulo">MEUS ATIVOS COMPARTILHADOS</p>
+    <h1 class="titulo">Os Meus Grupos</h1>
+  </div>
 
- 
+
+    <div class="button-container">
+    <ion-button expand="block" routerLink="/criargrupo" class="novo-grupo-btn">
+      <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+      Novo Grupo
+    </ion-button>
+  </div>
+
+  <ion-card class="grupos-card">
+    <ion-list lines="inset">
+      @for (grupo of grupos; track grupo.id; let i = $index) {
+        <ion-item [routerLink]="['/grupo-detalhe', grupo.id]" button detail>
+          <div class="icone-container" [style.background-color]="getCor(i)" slot="start">
+            <ion-icon [name]="grupo.icone"></ion-icon>
+          </div>
+          <ion-label>
+            <h2>{{ grupo.nome }}</h2>
+            <p>
+              <ion-icon name="people-outline"></ion-icon> {{ grupo.pessoas.length }} Membros
+              &nbsp;&nbsp;
+              <ion-icon name="list-outline"></ion-icon> {{ grupo.produtos.length }} Itens
+            </p>
+          </ion-label>
+        </ion-item>
+      }
+    </ion-list>
+  </ion-card>
 </ion-content>
