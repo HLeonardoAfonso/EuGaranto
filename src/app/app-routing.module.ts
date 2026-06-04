@@ -23,6 +23,10 @@ const routes: Routes = [
     loadChildren: () => import('./grupo-detalhe/grupo-detalhe.module').then( m => m.GrupoDetalhePageModule)
   },
   {
+    path: 'edit-product/:id',
+    loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
+  },
+  {
     path: 'selecionar-pessoa',
     loadChildren: () => import('./selecionar-pessoa/selecionar-pessoa.module').then( m => m.SelecionarPessoaPageModule)
   },

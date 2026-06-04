@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Product, ProductService } from '../services/product.service';
 
@@ -9,21 +9,25 @@ import { Product, ProductService } from '../services/product.service';
   styleUrls: ['./new-product.page.scss'],
   standalone: false
 })
-export class NewProductPage implements OnInit {
-  product!: Product;
+export class NewProductPage {
+  product?: Product;
   productName: string = '';
   garantiaPercentual: number = 0;
-  notificacoesAtivas: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private router: Router
   ) { }
 
-  ngOnInit() {
+  async ionViewWillEnter() {
+    await this.loadProduct();
+  }
+
+  private async loadProduct() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    const product = this.productService.getProductById(id);
+    const product = await this.productService.getProductById(id);
 
     if (!product) {
       this.navCtrl.navigateBack('/tabs/tab1');
@@ -37,6 +41,7 @@ export class NewProductPage implements OnInit {
 
   private calcularGarantia() {
     const p = this.product;
+    if (!p) return;
     const hoje = new Date();
     const dataCompra = new Date(p.dataCompra);
     const fimGarantia = new Date(dataCompra);
@@ -55,6 +60,7 @@ export class NewProductPage implements OnInit {
   }
 
   get garantiaRestanteDias(): number {
+    if (!this.product) return 0;
     const hoje = new Date();
     const dataCompra = new Date(this.product.dataCompra);
     const fimGarantia = new Date(dataCompra);
@@ -73,5 +79,22 @@ export class NewProductPage implements OnInit {
 
   get progressOffset(): number {
     return this.progressCircumference * (1 - this.garantiaPercentual / 100);
+  }
+
+  editarProduto() {
+    if (this.product) {
+      this.router.navigate(['/edit-product', this.product.id]);
+    }
+  }
+
+  async onNotificationToggle(event: CustomEvent) {
+    if (!this.product) return;
+
+    const enabled = event.detail.checked;
+    this.product.notications = enabled;
+
+    await this.productService.updateProduct(this.product.id, {
+      notications: enabled,
+    });
   }
 }

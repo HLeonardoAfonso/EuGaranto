@@ -35,3 +35,15 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+ion-button {
+  --padding-top: 16px;
+  --padding-bottom: 16px;
+  --color: #ffffff;
+  font-size: 14px;
+  letter-spacing: 1.4px;
+}
+
+ion-button::part(native) {
+  line-height: 20px;
+}

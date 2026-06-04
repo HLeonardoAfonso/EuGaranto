@@ -1,0 +1,218 @@
+ ### Sessão 0 – 2 de maio de 2026
+
+Objetivo: Criação do repositorio.
+
+Atividades realizadas:
+- Criar o templetate de tabs do Ionic;
+- Criar o repositorio e partilhar com o grupo;
+
+### Sessão 1 – 3 de maio de 2026
+
+Objetivo: Criar uma nova pagina para os detalhes dos produtos.
+
+Atividades realizadas:
+- Criei a pagina new-product para a informação dos produtos;
+- Edição dos icones e nomes das tabs;
+- Implementei o método para atualização de um produto;
+
+Problemas:
+- n.a
+
+Solução:
+- n.a
+
+### Sessão 2 – 7 de maio de 2026
+
+Objetivo: Criar os cartões de produtos.
+
+Atividades realizadas:
+- Criei os cartões dos produtos;
+- Implementei o routing para a pagina de detalhes da garantia;
+
+Problemas:
+- n.a
+
+Solução:
+- n.a
+
+### Sessão 3 – 14 de maio de 2026
+
+Objetivo: Início da implementação de um Service para a gestão de produtos.
+
+Atividades realizadas:
+- Criei um Service para a gestão dos produtos;
+- Implementei o método de inserção de um produto;
+- Implementei o método para atualização de um produto;
+
+Problemas:
+- Os produtos não estavam a ser atualizados.
+
+Solução:
+- Retificação da composição do objeto, do produto, que estava a ser enviado para o método.
+
+Decisões:
+- Ponderar mais tarde adicionar mais um Service para a gestão dos tipos de produtos, retirando-a do Service da gestão dos produtos.
+
+### Sessão 4 – 22 de maio de 2026
+
+Objetivo:
+Início da implementação dos componentes da página da garantia.
+
+Atividades realizadas:
+- Adicionei os campos com os detalhes do produto (ionic list);
+- Atualizei o product.service;
+- Adicionei o botão de editar e toggle de notificações;
+- Criei uma nova página Notificações;
+- Adicionei o botão notificações na página Tab1;
+
+Problemas:
+- Inicialização do campo Produto a null.
+
+Solução:
+- Implementar verificação do Produto (if !Produto), e com navCtrl redirecionar para tab1.
+
+Decisões:
+- Mover interfaces para um ficheiro dedicado, ação do botão editar e notificações.
+
+### Sessão 5 – 23 de maio de 2026
+
+Objetivo:
+Início da implementação dos componentes da página de notificações.
+
+Atividades realizadas:
+- Adicionei os toggles para as notificações por produto (ionic items);
+- Adicionei os botões para o tipo de notificações (ion chip);
+- Adicionei o toggle para activar notificações para todos os produtos (ion chip);
+
+Problemas:
+- n.a
+
+Solução:
+- n.a
+
+Decisões:
+- n.a
+
+
+### Sessão 6 – 24 de maio de 2026
+
+Objetivo:
+Editar os componentes da página principal.
+
+Atividades realizadas:
+- Editei o cartão das garantias de acordo com o PAF;
+- Criei o ionic component status-badge, indicando o estado da garantia (activa, terminada), que tem 3 versões (valido, a expirar, expirado), e calcula qual é mostrada no cartão automaticamente;
+- Adicionei um separador para organizar as garantias em grupos de anos e por ordem cronológica;
+
+Problemas:
+- Manipulação e cálculo usando datas no componente status-badge.
+
+Solução:
+- Comparação em milissegundos ( .getTime() ), e conversão novamente para mês/ano.
+
+Decisões:
+- n.a
+
+### Sessão 7 – 28 de maio de 2026
+
+Objetivo:
+Adicionar garantia ao preencher o formulário em Tab2.
+
+Atividades realizadas:
+- Editei o cartão das garantias de acordo com o PAF;
+- Criei o ionic component status-badge, indicando o estado da garantia (activa, terminada), que tem 3 versões (valido, a expirar, expirado), e calcula qual é mostrada no cartão automaticamente;
+- Adicionei um separador para organizar as garantias em grupos de anos e por ordem cronológica;
+
+Problemas:
+- Manipulação e cálculo usando datas no componente status-badge.
+
+Solução:
+- Comparação em milissegundos ( .getTime() ), e conversão novamente para mês/ano.
+
+Decisões:
+- n.a
+
+### Sessão 8 – 30 de maio de 2026
+
+Objetivo:
+Instalar Ionic-storage.
+
+Atividades realizadas:
+- Instalei Ionic-storage e CordovaSQLLite;
+- Atualizei o serviço produtos usando storage;
+- Atualizei os métodos das páginas para esperar pelas garantias;
+- Atualizei o serviço grupos usando storage;
+- Atualizei os métodos das páginas para esperar pelos grupos;
+
+Problemas:
+- após as modificações a aplicação não mostrava componentes
+
+Solução:
+- faltava atualizar o ficheiro app.component.ts para iniciar a storage
+
+Decisões:
+- n.a
+
+
+### Sessão 9 – 2 de junho de 2026
+
+Objetivo:
+Adicionar a funcionalidade de upload da fotografia da fatura/garantia e do local onde esta está guardada.
+
+Atividades realizadas:
+- Instalei capacitor/camera;
+- Adicionei fotoFatura e fotoLocal na interface Producto;
+- Adicionei dois campos de imagem no formulário da Tab2 (Fatura e Local);
+- Implementei o método tirarFoto() que permite tirar foto com a câmera ou escolher da galeria;
+- Adicionei pré-visualização das imagens com opção de substituir ou remover;
+- Atualizei o confirmarRegisto() para guardar as imagens no produto;
+- Adicionei a exibição das imagens na página de detalhe do produto new-product.page;
+- Adicionei a foto do produto como thumbnail na lista da Tab1;
+
+Problemas:
+- n.a
+
+Solução:
+- n.a
+
+Decisões:
+- As imagens são guardadas como base64 (dataUrl) diretamente no armazenamento;
+- As imagens são opcionais, o formulário funciona sem elas;
+
+### Sessão 10 – 4 de junho de 2026
+
+Objetivo:
+Terminar a implementação da funcionalidade para editar garantias.
+
+Atividades realizadas:
+- em vez de criar uma nova página de edição, editamos a página de criar uma nova garantia;
+- aviso usando ionic AlertController quando o utilizador apaga uma garantia
+
+Problemas:
+- forms não estavam a ser limpos entre utilizações
+
+Solução:
+- criar um novo método resetForm() para colocar os campos no estado default
+
+Decisões:
+
+
+### Sessão 11 – 4 de junho de 2026
+
+Objetivo:
+Manter defenições de notificações, e feedback do form de nova garantia usando reactiveForms.
+
+Atividades realizadas:
+- criar um service para as definições de notificações;
+- atualizar a pagina notificacoes para comunicar com o service
+- atualizar a pagina de nova garantia (tab2) para importar rasctiveForms, e ter um form em vez de varios inputs
+- implementar if para que o cartão indicando o fim da garantia só aparessa quando o utilizador indica o dia de compra
+
+Problemas:
+- n.a
+
+Solução:
+- n.a
+
+Decisões:
+

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
 import { Product, ProductService } from '../services/product.service';
 
 export interface ProductGroup {
@@ -12,11 +13,33 @@ export interface ProductGroup {
   styleUrls: ['tab1.page.scss'],
   standalone: false,
 })
-export class Tab1Page {
-  public appPages = this.productService.getProducts();
-  groupedProducts: ProductGroup[];
+export class Tab1Page implements OnDestroy {
+  public appPages: Product[] = [];
+  groupedProducts: ProductGroup[] = [];
 
-  constructor(private productService: ProductService) {
+  private routerSubscription: any;
+
+  constructor(
+    private productService: ProductService,
+    private router: Router
+  ) {
+    this.routerSubscription = this.router.events.subscribe((event: any) => {
+      if (event instanceof NavigationEnd && event.url.includes('/tabs/tab1')) {
+        this.loadProducts();
+      }
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
+
+  private async loadProducts() {
+    console.log('[Tab1] Reloading products');
+    this.appPages = await this.productService.getProducts();
+    console.log('[Tab1] products loaded:', this.appPages.length);
     this.groupedProducts = this.buildGroupedProducts();
   }
 
@@ -40,5 +63,3 @@ export class Tab1Page {
     return groups;
   }
 }
-
-
