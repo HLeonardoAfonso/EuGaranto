@@ -7,8 +7,12 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'new-product',
+    path: 'new-product/:id',
     loadChildren: () => import('./new-product/new-product.module').then( m => m.NewProductPageModule)
+  },
+  {
+    path: 'notificacoes',
+    loadChildren: () => import('./notificacoes/notificacoes.module').then( m => m.NotificacoesPageModule)
   },
   {
     path: 'criargrupo',
@@ -17,9 +21,21 @@ const routes: Routes = [
   {
     path: 'grupo-detalhe/:id',
     loadChildren: () => import('./grupo-detalhe/grupo-detalhe.module').then( m => m.GrupoDetalhePageModule)
+  },
+  {
+    path: 'edit-product/:id',
+    loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
+  },
+  {
+    path: 'selecionar-pessoa',
+    loadChildren: () => import('./selecionar-pessoa/selecionar-pessoa.module').then( m => m.SelecionarPessoaPageModule)
+  },
+  {
+    path: 'selecionar-produto',
+    loadChildren: () => import('./selecionar-produto/selecionar-produto.module').then( m => m.SelecionarProdutoPageModule)
   }
-
 ];
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

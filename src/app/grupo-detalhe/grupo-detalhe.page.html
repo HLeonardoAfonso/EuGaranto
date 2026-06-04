@@ -9,14 +9,63 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-list>
-    <ion-item>
-      <ion-icon [name]="grupo?.icone" slot="start"></ion-icon>
+  <!-- Título grande -->
+  <h1 class="grupo-titulo">{{ grupo?.nome }}</h1>
+
+  <!-- Botão Adicionar + Definições -->
+  <div class="actions-row">
+    <ion-button expand="block" fill="solid" class="btn-adicionar" (click)="abrirModal()">
+      <ion-icon slot="start" name="person-add-outline"></ion-icon>
+      Adicionar Utilizador
+    </ion-button>
+  </div>
+
+  <!-- Secção Membros -->
+  <div class="section-header">
+    <span class="section-title">Membros </span>
+    <span class="section-count">{{ grupo?.pessoas?.length }} Pessoas</span>
+  </div>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let nome of grupo?.pessoas; let i = index">
+      <ion-avatar slot="start">
+        <img [src]="getFoto(nome)" />
+      </ion-avatar>
       <ion-label>
-        <h2>{{ grupo?.nome }}</h2>
-        <p>{{ grupo?.descricao }}</p>
+        <h2>{{ nome }}</h2>
+        <p>{{ i === 0 ? 'Administrador' : 'Membro' }}</p>
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <!-- Secção Produtos Partilhados -->
+  <div class="section-header">
+    <span class="section-title">Produtos Partilhados</span>
+    <a class="ver-todos">Ver Todos</a>
+  </div>
+
+  <ion-list lines="none">
+    <ion-item *ngFor="let produto of produtos">
+      <ion-icon slot="start" name="pricetag-outline"></ion-icon>
+      <ion-label>
+        <h2>{{ produto.nome }}</h2>
+        <p>{{ produto.marca }} - {{ produto.modelo}}</p>
+      </ion-label>
+    </ion-item> 
+  </ion-list>
+
+  <!-- Botão Mover Produto -->
+<ion-item lines="none" class="btn-mover" (click)="abrirModalProdutos()">
+  <ion-label>Mover Produto para Grupo</ion-label>
+  <ion-icon slot="end" name="arrow-forward"></ion-icon>
+</ion-item>
+
+
+
+  <!-- Botão Sair do Grupo -->
+  <ion-button expand="block" fill="outline" color="danger" class="btn-sair">
+    <ion-icon slot="start" name="log-out-outline"></ion-icon>
+    Sair do Grupo
+  </ion-button>
 
 </ion-content>

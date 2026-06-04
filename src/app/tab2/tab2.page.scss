@@ -1,8 +1,107 @@
-
-
 .input-container {
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 16px;
+}
+
+ion-datetime-button {
+  width: 100%;
+}
+
+.duration-container {
+  display: flex;
+  gap: 8px;
+
+  ion-input:first-child {
+    flex: 1;
+  }
+
+  ion-input:last-child {
+    flex: 2;
+  }
+}
+
+.image-section {
+  display: flex;
+  gap: 12px;
+}
+
+.image-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.image-label {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ion-color-medium);
+}
+
+.image-preview {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: var(--ion-color-light);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-actions {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    gap: 4px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    padding: 2px;
+
+    ion-button {
+      --padding-start: 4px;
+      --padding-end: 4px;
+      margin: 0;
+      color: white;
+    }
+  }
+}
+
+.ng-invalid.ng-touched {
+  --border-color: var(--ion-color-danger);
+}
+
+ion-text {
+  margin-top: -8px;
+}
+
+.image-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  aspect-ratio: 1;
+  border: 2px dashed var(--ion-color-medium);
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--ion-color-medium);
+
+  ion-icon {
+    font-size: 32px;
+  }
+
+  span {
+    font-size: 12px;
+  }
+
+  &:hover {
+    border-color: var(--ion-color-primary);
+    color: var(--ion-color-primary);
+  }
 }

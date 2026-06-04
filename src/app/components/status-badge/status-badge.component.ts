@@ -16,6 +16,7 @@ export class StatusBadgeComponent  implements OnInit {
 
   estado!: string;
   color!: string;
+  badgeIcon!: string;
 
   ngOnInit(): void {
     this.calcularEstado();
@@ -34,16 +35,19 @@ export class StatusBadgeComponent  implements OnInit {
     {
       this.estado = 'EXPIRADO';
       this.color = 'danger';
+      this.badgeIcon = 'close-circle';
     } 
     else if (diasRestantes <= 30) 
     {
       this.estado = 'A EXPIRAR';
       this.color = 'warning';
+      this.badgeIcon = 'warning';
     } 
     else 
     {
       this.estado = 'VÁLIDO';
       this.color = 'success';
+      this.badgeIcon = 'checkmark-circle';
     }
   }
 }

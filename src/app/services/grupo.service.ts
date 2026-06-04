@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-
-
+import { Storage } from '@ionic/storage-angular';
 
 export interface Group {
   id: number;
@@ -11,34 +10,58 @@ export interface Group {
   pessoas: string[];
 }
 
+const GRUPOS_STORAGE_KEY = '_gruposdb';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GrupoService {
 
+  private grupos: Group[] = [];
 
-   private grupos: Group[] = [];
-  
+  constructor(private storage: Storage) {}
 
-  getGrupos() {
-    return this.grupos;
+  async getGrupos(): Promise<Group[]> {
+    const stored = await this.storage.get(GRUPOS_STORAGE_KEY);
+    return stored || this.grupos;
   }
 
-  addGrupo(nome: string, descricao: string, icone: string) {
-    const grupo: Group  = { id : this.grupos.length + 1, 
-      nome, 
+  async addGrupo(nome: string, descricao: string, icone: string): Promise<Group> {
+    const grupos = await this.getGrupos();
+    const grupo: Group = {
+      id: grupos.length + 1,
+      nome,
       descricao,
       icone,
       produtos: [],
       pessoas: []
     };
-    this.grupos.push(grupo);
-
+    grupos.push(grupo);
+    this.grupos = grupos;
+    await this.storage.set(GRUPOS_STORAGE_KEY, this.grupos);
+    return grupo;
   }
 
-  getGrupoById(id: number): Group | undefined {
-    return this.grupos.find(g => g.id === id);
+  async getGrupoById(id: number): Promise<Group | undefined> {
+    const grupos = await this.getGrupos();
+    return grupos.find(g => g.id === id);
   }
 
+  async guardarGrupo(grupo: Group): Promise<void> {
+    const grupos = await this.getGrupos();
+    const index = grupos.findIndex(g => g.id === grupo.id);
+    if (index > -1) {
+      grupos[index] = grupo;
+      await this.storage.set(GRUPOS_STORAGE_KEY, grupos);
+    }
+  }
+
+  async adicionarPessoa(grupoId: number, nome: string): Promise<void> {
+    const grupos = await this.getGrupos();
+    const grupo = grupos.find(g => g.id === grupoId);
+    if (grupo) {
+      grupo.pessoas.push(nome);
+      await this.storage.set(GRUPOS_STORAGE_KEY, grupos);
+    }
+  }
 }

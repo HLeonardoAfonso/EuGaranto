@@ -1,0 +1,42 @@
+.grupos-header {
+  padding: 16px 16px 8px;
+
+  .subtitulo {
+    font-size: 11px;
+    color: var(--ion-color-medium);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .titulo {
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+    margin: 0;
+  }
+}
+
+.button-container {
+  padding: 8px 16px 16px;
+}
+
+.novo-grupo-btn {
+  --background: #0a2472;
+  --border-radius: 12px;
+}
+
+.icone-container {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+
+  ion-icon {
+    font-size: 24px;
+    color: white;
+  }
+}

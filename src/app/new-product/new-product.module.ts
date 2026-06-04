@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { NewProductPageRoutingModule } from './new-product-routing.module';
 
 import { NewProductPage } from './new-product.page';
+import { StatusBadgeComponent } from '../components/status-badge/status-badge.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewProductPageRoutingModule
+    NewProductPageRoutingModule,
+    StatusBadgeComponent
   ],
   declarations: [NewProductPage]
 })

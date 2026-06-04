@@ -7,6 +7,11 @@ import { IonicModule } from '@ionic/angular';
 import { GrupoDetalhePageRoutingModule } from './grupo-detalhe-routing.module';
 
 import { GrupoDetalhePage } from './grupo-detalhe.page';
+import { SelecionarPessoaPage } from '../selecionar-pessoa/selecionar-pessoa.page';
+
+import { SelecionarProdutoPage } from '../selecionar-produto/selecionar-produto.page';
+
+
 
 @NgModule({
   imports: [
@@ -14,7 +19,9 @@ import { GrupoDetalhePage } from './grupo-detalhe.page';
     FormsModule,
     IonicModule,
     GrupoDetalhePageRoutingModule
+    
+
   ],
-  declarations: [GrupoDetalhePage]
+  declarations: [GrupoDetalhePage, SelecionarPessoaPage, SelecionarProdutoPage]
 })
 export class GrupoDetalhePageModule {}
