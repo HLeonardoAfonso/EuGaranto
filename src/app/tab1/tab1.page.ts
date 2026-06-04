@@ -19,7 +19,9 @@ export class Tab1Page {
   constructor(private productService: ProductService) {}
 
   async ionViewWillEnter() {
+    console.log('[Tab1] ionViewWillEnter');
     this.appPages = await this.productService.getProducts();
+    console.log('[Tab1] products loaded:', this.appPages.length);
     this.groupedProducts = this.buildGroupedProducts();
   }
 

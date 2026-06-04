@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
+const PRODUCTS_STORAGE_KEY = '_garantiasdb';
+
 export interface Product {
   id: number;
   nome: string;
@@ -66,23 +68,64 @@ export class ProductService {
   constructor(private storage: Storage) {}
 
   async getProducts(): Promise<Product[]> {
-    const products = await this.storage.get('_garantiasdb');
-    return products || this.products;
+    const stored = await this.storage.get(PRODUCTS_STORAGE_KEY);
+    if (stored && stored.length > 0) {
+      this.products = stored.map((product: Product) => ({
+        ...product,
+        dataCompra: new Date(product.dataCompra),
+      }));
+    }
+    return [...this.products];
   }
 
   async getProductById(id: number): Promise<Product | undefined> {
+    console.log('[ProductService] getProductById called with id:', id);
     const products = await this.getProducts();
-    return products.find(prod => prod.id === id);
+    console.log('[ProductService] products found:', products.length, products.map(p => ({ id: p.id, nome: p.nome })));
+    const found = products.find(prod => prod.id === id);
+    console.log('[ProductService] product found:', found);
+    return found;
   }
 
   async addProduct(product: Omit<Product, 'id'>): Promise<Product> {
-    const maxId = this.products.reduce((max, p) => Math.max(max, p.id), 0);
+    const products = await this.getProducts();
+    const maxId = products.reduce((max, p) => Math.max(max, p.id), 0);
     const newProduct: Product = {
       ...product,
       id: maxId + 1
     };
-    this.products.push(newProduct);
-    await this.storage.set('_garantiasdb', this.products);
+    products.push(newProduct);
+    this.products = products;
+    await this.storage.set(PRODUCTS_STORAGE_KEY, this.products);
     return newProduct;
   }
+
+  async updateProduct(id: number, updates: Partial<Omit<Product, 'id'>>): Promise<Product | undefined> {
+    const products = await this.getProducts();
+    const index = products.findIndex(p => p.id === id);
+    if (index === -1) return undefined;
+
+    products[index] = {
+      ...products[index],
+      ...updates,
+      dataCompra: new Date(updates.dataCompra ?? products[index].dataCompra),
+    };
+    this.products = products;
+    await this.storage.set(PRODUCTS_STORAGE_KEY, this.products);
+    return products[index];
+  }
+
+  async deleteProduct(id: number): Promise<boolean> {
+    const products = await this.getProducts();
+    const filteredProducts = products.filter(p => p.id !== id);
+
+    if (filteredProducts.length === products.length) {
+      return false;
+    }
+
+    this.products = filteredProducts;
+    await this.storage.set(PRODUCTS_STORAGE_KEY, this.products);
+    return true;
+  }
+
 }

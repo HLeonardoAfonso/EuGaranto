@@ -21,6 +21,10 @@ const routes: Routes = [
   {
     path: 'grupo-detalhe/:id',
     loadChildren: () => import('./grupo-detalhe/grupo-detalhe.module').then( m => m.GrupoDetalhePageModule)
+  },
+  {
+    path: 'edit-product/:id',
+    loadChildren: () => import('./tab2/tab2.module').then( m => m.Tab2PageModule)
   }
 
 ];
