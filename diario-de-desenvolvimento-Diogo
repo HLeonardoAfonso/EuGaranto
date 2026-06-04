@@ -1,0 +1,112 @@
+### Sessão 3 – 25 de maio de 2026
+
+Objetivo:
+Criar a página para criar um novo grupo.
+
+Atividades realizadas:
+- Criei a página criargrupo com um formulário com campos de texto para o nome e descrição do grupo;
+- Adicionei botões para confirmar ou cancelar a criação;
+
+Problemas:
+- Não existia a página de criar grupo.
+
+Solução:
+- Criei a página com ionic generate page e adicionei os componentes necessários.
+
+Decisões:
+- n.a
+
+---
+
+### Sessão 4 – 28 de maio de 2026
+
+Objetivo:
+Criar o serviço de grupos e as páginas de listagem e detalhe.
+
+Atividades realizadas:
+- Criei o grupo.service.ts com a interface Group e os métodos addGrupo, getGrupos e getGrupoById;
+- Implementei a página tab3 para mostrar a lista de grupos;
+- Implementei a página grupo-detalhe para mostrar os detalhes de um grupo;
+- Configurei a rota grupo-detalhe/:id no app-routing.module.ts;
+
+Problemas:
+- Ao clicar num grupo na tab3 a página de detalhe não abria.
+
+Solução:
+- Faltava o parâmetro /:id na rota. Depois de o adicionar e usar o ActivatedRoute para ler o id, passou a funcionar.
+
+Decisões:
+- Usei o ActivatedRoute para ler o id do grupo na página de detalhe, por ser a forma recomendada no Angular.
+
+---
+
+### Sessão 5 – 01 de junho de 2026
+
+Objetivo:
+Mostrar utilizadores reais na página de detalhe do grupo usando uma API externa.
+
+Atividades realizadas:
+- Criei o serviço randomuser.ts com o método getPessoas() que vai buscar utilizadores à API RandomUser;
+- Integrei o serviço na página grupo-detalhe;
+- Adicionei o HttpClientModule ao app.module.ts;
+- Mostrei os utilizadores com avatar, nome e papel (Administrador/Membro);
+
+Problemas:
+- A página grupo-detalhe dava erro ao abrir.
+
+Solução:
+- O HttpClientModule estava importado no ficheiro mas não estava no array imports[] do @NgModule. Depois de o adicionar o erro desapareceu.
+
+Decisões:
+- O primeiro utilizador da lista é automaticamente o Administrador, os restantes são Membros.
+
+---
+
+### Sessão 6 – 02 de junho de 2026
+
+Objetivo:
+Atualizar o design da tab3 para ficar de acordo com o que foi definido.
+
+Atividades realizadas:
+- Atualizei o tab3.page.html com título grande, subtítulo e botão "Novo Grupo";
+- Adicionei o método getCor(index) para dar uma cor diferente ao ícone de cada grupo;
+- Cada grupo na lista mostra agora o número de membros e de produtos;
+
+Problemas:
+- A lista só mostrava o nome e descrição do grupo, sem mais informação.
+
+Solução:
+- Usei grupo.pessoas.length e grupo.produtos.length para mostrar os totais.
+
+Decisões:
+- As cores são atribuídas com index % cores.length a partir de um array de 5 cores, sem precisar de guardar a cor no storage.
+
+---
+
+### Sessão 7 – 03 de junho de 2026
+
+Objetivo:
+Implementar o modal para adicionar produtos a um grupo.
+
+Atividades realizadas:
+- Criei a página selecionar-produto para funcionar como modal de seleção de produtos;
+- Adicionei o método abrirModalProdutos() na página grupo-detalhe;
+- Adicionei o método guardarGrupo() no grupo.service.ts para guardar as alterações ao grupo;
+- Declarei o SelecionarProdutoPage no grupo-detalhe.module.ts;
+- Liguei o botão "Mover Produto para Grupo" ao método abrirModalProdutos();
+- No ngOnInit, os produtos do grupo são carregados a partir do array de IDs guardado no grupo;
+
+Problemas:
+- O SelecionarProdutoPage estava declarado em dois módulos ao mesmo tempo, o que dava erro;
+- O botão "Mover Produto para Grupo" estava duplicado no HTML e sem tag de fecho;
+- O HTML chamava filtrar() mas o TypeScript tinha filtrarProdutos(), o que causava erro;
+- Faltava o @Input() no campo produtosJaAdicionados e o ! no filtro do ngOnInit;
+
+Solução:
+- Removi o módulo próprio do SelecionarProdutoPage e deixei-o declarado apenas no grupo-detalhe.module.ts;
+- Corrigi o HTML removendo o botão duplicado;
+- Alinei os nomes dos métodos entre o TypeScript e o HTML;
+- Adicionei o @Input() e o ! em falta;
+
+Decisões:
+- Usei guardarGrupo() para substituir o grupo inteiro no storage, já que os produtos são guardados como array de IDs dentro do grupo.

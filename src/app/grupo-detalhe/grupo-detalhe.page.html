@@ -41,18 +41,21 @@
   <!-- Secção Produtos Partilhados -->
   <div class="section-header">
     <span class="section-title">Produtos Partilhados</span>
-    <a class="ver-todos">Ver Todos</a>
   </div>
 
-  <ion-list lines="none">
-    <ion-item *ngFor="let produto of produtos">
-      <ion-icon slot="start" name="pricetag-outline"></ion-icon>
-      <ion-label>
-        <h2>{{ produto.nome }}</h2>
-        <p>{{ produto.marca }} - {{ produto.modelo}}</p>
-      </ion-label>
-    </ion-item> 
-  </ion-list>
+  <div class="produtos-scroll">
+    <div class="produto-card" *ngFor="let produto of produtos">
+      <div class="produto-card-top">
+        <img *ngIf="produto.fotoLocal" [src]="produto.fotoLocal" class="produto-imagem" />
+        <div class="produto-info">
+          <app-status-badge [dataCompra]="produto.dataCompra" [duracaoGarantia]="produto.duracaoGarantia"></app-status-badge>
+          <h3 class="produto-nome">{{ produto.nome }} {{ produto.marca }}</h3>
+          <p class="produto-expiracao">{{ getTextoExpiracao(produto) }}</p>
+          <a class="produto-detalhes" [routerLink]="['/new-product', produto.id]">DETALHES ></a>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- Botão Mover Produto -->
 <ion-item lines="none" class="btn-mover" (click)="abrirModalProdutos()">

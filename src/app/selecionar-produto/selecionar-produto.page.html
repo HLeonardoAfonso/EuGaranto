@@ -12,7 +12,12 @@
 
   <ion-list>
     <ion-item *ngFor="let produto of produtosFiltrados" (click)="toggleSelecao(produto)">
-      <ion-icon slot="start" name="pricetag-outline"></ion-icon>
+      <ion-thumbnail slot="start">
+        <img *ngIf="produto.fotoLocal; else semFoto" [src]="produto.fotoLocal" />
+        <ng-template #semFoto>
+          <ion-icon name="pricetag-outline" style="font-size: 32px; margin: auto; display: block;"></ion-icon>
+        </ng-template>
+      </ion-thumbnail>
       <ion-label>
         <h2>{{ produto.nome }}</h2>
         <p>{{ produto.marca }} — {{ produto.modelo }}</p>

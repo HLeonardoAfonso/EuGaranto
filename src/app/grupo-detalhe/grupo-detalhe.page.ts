@@ -64,8 +64,22 @@ async abrirModal() {
   }
 }
 
-async abrirModalProdutos(){
+getTextoExpiracao(produto: Product): string {
+    const expiracao = new Date(produto.dataCompra);
+    expiracao.setMonth(expiracao.getMonth() + produto.duracaoGarantia);
+    const hoje = new Date();
+    const dias = Math.ceil((expiracao.getTime() - hoje.getTime()) / (1000 * 60 * 60 * 24));
+    if (dias < 0) return 'Garantia expirada';
+    if (dias < 30) return `Expira em ${dias} dias`;
+    if (dias < 365) {
+      const meses = Math.floor(dias / 30);
+      return `Expira em ${meses} ${meses === 1 ? 'mês' : 'meses'}`;
+    }
+    const anos = Math.floor(dias / 365);
+    return `Expira em ${anos} ${anos === 1 ? 'ano' : 'anos'}`;
+  }
 
+async abrirModalProdutos(){
     const modal = await this.modalController.create({
       component: SelecionarProdutoPage,
       componentProps: { produtosJaAdicionados: this.grupo!.produtos }

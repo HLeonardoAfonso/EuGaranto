@@ -8,19 +8,16 @@ import { GrupoDetalhePageRoutingModule } from './grupo-detalhe-routing.module';
 
 import { GrupoDetalhePage } from './grupo-detalhe.page';
 import { SelecionarPessoaPage } from '../selecionar-pessoa/selecionar-pessoa.page';
-
 import { SelecionarProdutoPage } from '../selecionar-produto/selecionar-produto.page';
-
-
+import { StatusBadgeComponent } from '../components/status-badge/status-badge.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    GrupoDetalhePageRoutingModule
-    
-
+    GrupoDetalhePageRoutingModule,
+    StatusBadgeComponent
   ],
   declarations: [GrupoDetalhePage, SelecionarPessoaPage, SelecionarProdutoPage]
 })
