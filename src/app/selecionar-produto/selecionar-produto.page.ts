@@ -25,7 +25,7 @@ export class SelecionarProdutoPage implements OnInit {
 
   async ngOnInit() {
     const todos = await this.productService.getProducts();
-    this.produtos = todos.filter(p => this.produtosJaAdicionados.includes(p.id)); 
+    this.produtos = todos.filter(p => !this.produtosJaAdicionados.includes(p.id)); 
     this.produtosFiltrados = this.produtos;
   }
 

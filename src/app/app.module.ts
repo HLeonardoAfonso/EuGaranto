@@ -9,7 +9,7 @@ import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
       name: '_garantiasdb',
     }),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, provideHttpClient()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

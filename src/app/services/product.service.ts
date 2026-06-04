@@ -22,7 +22,9 @@ export interface Product {
 })
 
 export class ProductService {
-  private products: Product[] = [
+  private products: Product[] = [];
+
+  private defaultProducts: Product[] = [
     {
       id: 1,
       nome: 'Aspirador',
@@ -30,6 +32,8 @@ export class ProductService {
       modelo: 'ASP-1234',
       dataCompra: new Date('2025-01-15'),
       duracaoGarantia: 24,
+      fotoFatura: 'https://picsum.photos/seed/aspirador-fatura/200/200',
+      fotoLocal: 'https://picsum.photos/seed/aspirador/200/200',
       statusValido: true,
       notications: false
     },
@@ -40,6 +44,8 @@ export class ProductService {
       modelo: 'UN55T7000',
       dataCompra: new Date('2025-10-01'),
       duracaoGarantia: 12,
+      fotoFatura: 'https://picsum.photos/seed/tv-fatura/200/200',
+      fotoLocal: 'https://picsum.photos/seed/tv/200/200',
       statusValido: true,
       notications: false
     },
@@ -50,6 +56,8 @@ export class ProductService {
       modelo: 'Redmi Note 12',
       dataCompra: new Date('2024-02-20'),
       duracaoGarantia: 24,
+      fotoFatura: 'https://picsum.photos/seed/telemovel-fatura/200/200',
+      fotoLocal: 'https://picsum.photos/seed/telemovel/200/200',
       statusValido: true,
       notications: false
     },
@@ -60,6 +68,8 @@ export class ProductService {
       modelo: 'MS-2042B',
       dataCompra: new Date('2025-06-10'),
       duracaoGarantia: 12,
+      fotoFatura: 'https://picsum.photos/seed/microondas-fatura/200/200',
+      fotoLocal: 'https://picsum.photos/seed/microondas/200/200',
       statusValido: true,
       notications: false
     },
@@ -67,15 +77,31 @@ export class ProductService {
 
   constructor(private storage: Storage) {}
 
+  private mergeWithDefaults(storedProducts: Product[]): Product[] {
+    return storedProducts.map((storedProduct: Product) => {
+      const defaultProduct = this.defaultProducts.find(d => d.nome === storedProduct.nome);
+      return {
+        ...defaultProduct,
+        ...storedProduct,
+        dataCompra: new Date(storedProduct.dataCompra),
+      } as Product;
+    });
+  }
+
   async getProducts(): Promise<Product[]> {
     const stored = await this.storage.get(PRODUCTS_STORAGE_KEY);
     if (stored && stored.length > 0) {
-      this.products = stored.map((product: Product) => ({
-        ...product,
-        dataCompra: new Date(product.dataCompra),
-      }));
+      this.products = this.mergeWithDefaults(stored);
+    } else {
+      await this.initStorage();
+      return [...this.defaultProducts];
     }
     return [...this.products];
+  }
+
+  private async initStorage(): Promise<void> {
+    this.products = [...this.defaultProducts];
+    await this.storage.set(PRODUCTS_STORAGE_KEY, this.products);
   }
 
   async getProductById(id: number): Promise<Product | undefined> {
