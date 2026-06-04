@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
@@ -35,6 +35,7 @@ export class Tab2Page implements OnInit {
     private productService: ProductService,
     private navCtrl: NavController,
     private route: ActivatedRoute,
+    private router: Router,
     private alertController: AlertController
   ) {
     this.updateNumberOptions();
@@ -210,7 +211,7 @@ export class Tab2Page implements OnInit {
       });
 
       this.resetForm();
-      this.navCtrl.navigateRoot('/tabs/tab1');
+      this.router.navigate(['/tabs/tab1']);
 
     }
   }
@@ -244,7 +245,8 @@ export class Tab2Page implements OnInit {
           role: 'destructive',
           handler: async () => {
             await this.productService.deleteProduct(this.editProductId!);
-            this.navCtrl.navigateRoot('/tabs/tab1');
+            console.log('[Tab2] Product deleted, navigating to tab1');
+            this.router.navigate(['/tabs/tab1']);
           },
         },
       ],

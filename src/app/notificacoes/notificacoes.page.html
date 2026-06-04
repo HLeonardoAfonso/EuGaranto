@@ -18,7 +18,11 @@
 
     <ion-item>
       <ion-label>Receber notificações de todas as garantias</ion-label>
-      <ion-toggle slot="end"></ion-toggle>
+      <ion-toggle
+        slot="end"
+        [checked]="allNotificationsEnabled"
+        (ionChange)="onAllNotificationsToggle($event)">
+      </ion-toggle>
     </ion-item>
 
     <ion-list-header>
@@ -32,7 +36,7 @@
       <ion-chip 
         [color]="emailSelected ? 'primary' : ''" 
         [outline]="true" 
-        (click)="emailSelected = !emailSelected"
+        (click)="onEmailSelectedChange()"
         class="chip">
         <ion-icon name="mail-outline"></ion-icon>
         <ion-label>E-mail</ion-label>
@@ -42,7 +46,7 @@
       <ion-chip 
         [color]="pushSelected ? 'primary' : ''" 
         [outline]="true" 
-        (click)="pushSelected = !pushSelected"
+        (click)="onPushSelectedChange()"
         class="chip">
         <ion-icon name="phone-portrait-outline"></ion-icon>
         <ion-label>Push</ion-label>
@@ -57,7 +61,7 @@
       </ion-label>
     </ion-list-header>
 
-    @for (p of products; track p; let i = $index) {
+    @for (p of products; track p.id; let i = $index) {
       <ion-item>
         <ion-thumbnail slot="start">
           <ion-icon name="phone-portrait-outline" size="large"></ion-icon>
@@ -66,7 +70,12 @@
           <h2>{{p.nome}}</h2>
           <p>Alertar 15 dias antes</p>
         </ion-label>
-        <ion-toggle slot="end" color="success"></ion-toggle>
+        <ion-toggle
+          slot="end"
+          color="success"
+          [checked]="p.notications"
+          (ionChange)="onProductNotificationToggle(p, $event)">
+        </ion-toggle>
       </ion-item>
     }
   </div>

@@ -13,7 +13,6 @@ export class NewProductPage {
   product?: Product;
   productName: string = '';
   garantiaPercentual: number = 0;
-  notificacoesAtivas: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -86,5 +85,16 @@ export class NewProductPage {
     if (this.product) {
       this.router.navigate(['/edit-product', this.product.id]);
     }
+  }
+
+  async onNotificationToggle(event: CustomEvent) {
+    if (!this.product) return;
+
+    const enabled = event.detail.checked;
+    this.product.notications = enabled;
+
+    await this.productService.updateProduct(this.product.id, {
+      notications: enabled,
+    });
   }
 }

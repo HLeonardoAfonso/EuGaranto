@@ -18,7 +18,7 @@
     <!-- Warranty Status Card -->
     <ion-card class="warranty-card">
       <div class="warranty-card-watermark">
-        <ion-icon name="shield-checkmark-outline"></ion-icon>
+        <ion-icon name="library-outline"></ion-icon>
       </div>
       <ion-card-header>
         <ion-card-title class="warranty-card-title">ESTADO DA GARANTIA</ion-card-title>
@@ -110,7 +110,12 @@
       <ion-item>
         <ion-icon slot="start" name="notifications-outline"></ion-icon>
         <ion-label>Notificações Ativas</ion-label>
-        <ion-toggle slot="end" [(ngModel)]="notificacoesAtivas" color="success"></ion-toggle>
+        <ion-toggle
+          slot="end"
+          [checked]="product.notications"
+          (ionChange)="onNotificationToggle($event)"
+          color="success">
+        </ion-toggle>
       </ion-item>
 
     </div>
