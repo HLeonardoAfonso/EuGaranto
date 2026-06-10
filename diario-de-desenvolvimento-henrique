@@ -216,3 +216,18 @@ Solução:
 
 Decisões:
 
+
+### Sessão 12 – 10 de junho de 2026
+
+Objetivo:
+Implementar bloqueio de orientação do ecrã (portrait).
+
+Atividades realizadas:
+- Instalei o plugin @capacitor/screen-orientation;
+- Adicionei o bloqueio de orientação no app.component.ts para impedir o uso da app em landscape;
+
+Problemas:
+- n.a
+
+Solução:
+- n.a
